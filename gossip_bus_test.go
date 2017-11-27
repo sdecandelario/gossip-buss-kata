@@ -7,10 +7,10 @@ import (
 
 func TestAdvanceOnePosition(t *testing.T) {
 	assert := assert.New(t);
-	driver := []int{3, 1, 2, 3}
-	nextStop := advance(driver)
+	driver := NewDriver(3, 1, 2, 3)
+	driver.advance()
 
-	assert.Equal(nextStop, 1)
+	assert.Equal(driver.getCurrentStop(), 1)
 }
 
 func TestTwoDriversInDifferentStopDontShareGossip(t *testing.T) {
@@ -37,15 +37,10 @@ func TestDriverHave480StopsInitialy(t *testing.T) {
 	assert := assert.New(t);
 	driver1 := NewDriver(1, 2)
 
-	assert.True(len(driver1.Stops) == 480)
-
+	assert.Equal(len(driver1.Stops), 480)
 }
 
-func shareGossips(firstDriver *Driver, secondDriver *Driver, stop int) bool {
+func shareGossips(firstDriver Driver, secondDriver Driver, stop int) bool {
 
 	return firstDriver.Stops[stop] == secondDriver.Stops[stop]
-}
-
-func advance(ints []int) int {
-	return 1
 }
