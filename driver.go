@@ -7,7 +7,7 @@ type Driver struct {
 
 func NewDriver(stops ...int) Driver {
 
-	driver := Driver{currentStop: 1}
+	driver := Driver{currentStop: 0}
 	var finalStopSequence []int
 
 	for len(finalStopSequence) < 480 {
@@ -27,10 +27,14 @@ func NewDriver(stops ...int) Driver {
 	return driver
 }
 
-func (driver Driver) advance() {
+func (driver *Driver) advance() {
 	driver.currentStop += 1
 }
 
 func (driver Driver) getCurrentStop() int {
 	return driver.Stops[driver.currentStop]
+}
+
+func (driver Driver) ShareGossips(otherDriver Driver, stop int) bool {
+	return driver.Stops[stop] == otherDriver.Stops[stop]
 }
